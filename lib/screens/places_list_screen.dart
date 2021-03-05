@@ -39,7 +39,7 @@ class PlacesListScreen extends StatelessWidget {
                             itemCount: places.items.length,
                             itemBuilder: (ctx, index) {
                               final place = places.items[index];
-                              return PlaceTile(place.image);
+                              return PlaceTile(place.image, place.title);
                             },
                           ),
                   ),
