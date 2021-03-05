@@ -5,6 +5,8 @@ import '../providers/places.dart';
 
 import './add_place_screen.dart';
 
+import '../widgets/place_tile.dart';
+
 class PlacesListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,12 +32,7 @@ class PlacesListScreen extends StatelessWidget {
                 itemCount: places.items.length,
                 itemBuilder: (ctx, index) {
                   final place = places.items[index];
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: FileImage(place.image),
-                    ),
-                    title: Text(place.title),
-                  );
+                  return PlaceTile(place.image);
                 },
               ),
       ),
