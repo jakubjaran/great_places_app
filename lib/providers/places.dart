@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 
 import '../models/place.dart';
@@ -7,5 +9,16 @@ class Places with ChangeNotifier {
 
   List<Place> get items {
     return [..._items];
+  }
+
+  void addPlace(File imageFile, String title) {
+    final newPlace = Place(
+      id: DateTime.now().toString(),
+      title: title,
+      image: imageFile,
+      location: null,
+    );
+    _items.add(newPlace);
+    notifyListeners();
   }
 }

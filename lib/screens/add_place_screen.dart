@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/image_input.dart';
+import '../providers/places.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   static const routeName = '/add-place';
@@ -11,6 +15,20 @@ class AddPlaceScreen extends StatefulWidget {
 
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
+  File _imageFile;
+
+  void _pickImage(File imageFile) {
+    _imageFile = imageFile;
+  }
+
+  void _savePlace() {
+    if (_titleController.text.isEmpty || _imageFile == null) {
+      return;
+    }
+    Provider.of<Places>(context, listen: false)
+        .addPlace(_imageFile, _titleController.text);
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +42,22 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Title'),
-                    controller: _titleController,
-                  ),
-                  SizedBox(height: 30),
-                  ImageInput(),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Title'),
+                      controller: _titleController,
+                    ),
+                    SizedBox(height: 30),
+                    ImageInput(_pickImage),
+                  ],
+                ),
               ),
             ),
           ),
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: _savePlace,
             icon: Icon(Icons.add),
             label: Text('Add place'),
             style: ElevatedButton.styleFrom(
