@@ -13,6 +13,10 @@ class Places with ChangeNotifier {
     return [..._items];
   }
 
+  Place findById(String id) {
+    return _items.firstWhere((place) => place.id == id);
+  }
+
   Future<void> addPlace(
     File imageFile,
     String title,

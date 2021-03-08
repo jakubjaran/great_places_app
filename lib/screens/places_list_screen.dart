@@ -35,16 +35,19 @@ class PlacesListScreen extends StatelessWidget {
                     ),
                     builder: (ctx, places, ch) => places.items.length <= 0
                         ? ch
-                        : ListView.builder(
-                            itemCount: places.items.length,
-                            itemBuilder: (ctx, index) {
-                              final place = places.items[index];
-                              return PlaceTile(
-                                place.image,
-                                place.title,
-                                place.location.address,
-                              );
-                            },
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            child: ListView.builder(
+                              itemCount: places.items.length,
+                              itemBuilder: (ctx, index) {
+                                final place = places.items[index];
+                                return PlaceTile(
+                                  place.image,
+                                  place.title,
+                                  place.id,
+                                );
+                              },
+                            ),
                           ),
                   ),
       ),

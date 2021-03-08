@@ -2,45 +2,48 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../screens/place_details_screen.dart';
+
 class PlaceTile extends StatelessWidget {
   final File imageFile;
   final String title;
-  final String address;
+  final String id;
 
-  PlaceTile(this.imageFile, this.title, this.address);
+  PlaceTile(this.imageFile, this.title, this.id);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 100),
-      height: 300,
-      padding: EdgeInsets.all(30),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: FileImage(imageFile),
-          fit: BoxFit.cover,
-        ),
-      ),
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 5,
-              color: Colors.black45,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed(PlaceDetailsScreen.routeName, arguments: id);
+      },
+      child: Container(
+        height: 300,
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+        alignment: Alignment.center,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Hero(
+              tag: id,
+              child: Image.file(
+                imageFile,
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            address,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: Colors.black45),
-          ),
-        ],
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 5,
+                color: Colors.black45,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
