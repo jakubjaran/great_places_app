@@ -41,3 +41,6 @@ app.*.symbols
 app.*.map.json
 
 API.dart
+
+ios/Runner/AppDelegate.swift
+android/app/src/main/AndroidManifest.xml
